@@ -5,7 +5,7 @@
   <PropertyGroup>
     <MajorVersion>2</MajorVersion>
     <MinorVersion>6</MinorVersion>
-    <PatchVersion>1</PatchVersion>
+    <PatchVersion>2</PatchVersion>
   </PropertyGroup>
 
   <Import Project="..\..\build\Versioning.props" />
@@ -44,7 +44,7 @@
     <PackageId>FeatureManagement.Blazor</PackageId>
     <Product>$(AssemblyName).Blazor</Product>
     <AssemblyName>Microsoft.FeatureManagement</AssemblyName>
-    <Version>2.6.1-blazor</Version>
+    <Version>2.6.2-blazor</Version>
   </PropertyGroup>
 
   <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
