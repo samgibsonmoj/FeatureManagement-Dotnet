@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft Corporation.
+// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 //
 using Microsoft.Extensions.Configuration;
@@ -52,5 +52,46 @@ namespace Microsoft.FeatureManagement
 
             return services.AddFeatureManagement();
         }
+
+        /// <summary>
+        /// Adds required feature management services for Blazor.
+        /// </summary>
+        /// <param name="services">The service collection that feature management services are added to.</param>
+        /// <returns>A <see cref="IFeatureManagementBuilder"/> that can be used to customize feature management functionality.</returns>
+        public static IFeatureManagementBuilder AddFeatureManagementForBlazor(this IServiceCollection services)
+        {
+            services.AddLogging();
+
+            //
+            // Add required services
+            services.TryAddScoped<IFeatureDefinitionProvider, ConfigurationFeatureDefinitionProvider>();
+
+            services.AddScoped<IFeatureManager, FeatureManager>();
+
+            services.AddScoped<ISessionManager, EmptySessionManager>();
+
+            services.AddScoped<IFeatureManagerSnapshot, FeatureManagerSnapshot>();
+
+            return new FeatureManagementBuilder(services);
+        }
+
+        /// <summary>
+        /// Adds required feature management services for Blazor.
+        /// </summary>
+        /// <param name="services">The service collection that feature management services are added to.</param>
+        /// <param name="configuration">A specific <see cref="IConfiguration"/> instance that will be used to obtain feature settings.</param>
+        /// <returns>A <see cref="IFeatureManagementBuilder"/> that can be used to customize feature management functionality.</returns>
+        public static IFeatureManagementBuilder AddFeatureManagementForBlazor(this IServiceCollection services, IConfiguration configuration)
+        {
+            if (configuration == null)
+            {
+                throw new ArgumentNullException(nameof(configuration));
+            }
+
+            services.AddSingleton<IFeatureDefinitionProvider>(new ConfigurationFeatureDefinitionProvider(configuration));
+
+            return services.AddFeatureManagementForBlazor();
+        }
+
     }
 }

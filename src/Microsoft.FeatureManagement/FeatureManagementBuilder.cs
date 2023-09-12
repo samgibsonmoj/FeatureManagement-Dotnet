@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft Corporation.
+// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 //
 using System;
@@ -46,6 +46,36 @@ namespace Microsoft.FeatureManagement
         public IFeatureManagementBuilder AddSessionManager<T>() where T : ISessionManager
         {
             Services.AddSingleton(typeof(ISessionManager), typeof(T));
+
+            return this;
+        }
+
+        public IFeatureManagementBuilder AddFeatureFilterForBlazor<T>() where T : IFeatureFilterMetadata
+        {
+            Type serviceType = typeof(IFeatureFilterMetadata);
+
+            Type implementationType = typeof(T);
+
+            IEnumerable<Type> featureFilterImplementations = implementationType.GetInterfaces()
+                .Where(i => i == typeof(IFeatureFilter) ||
+                            (i.IsGenericType && i.GetGenericTypeDefinition().IsAssignableFrom(typeof(IContextualFeatureFilter<>))));
+
+            if (featureFilterImplementations.Count() > 1)
+            {
+                throw new ArgumentException($"A single feature filter cannot implement more than one feature filter interface.", nameof(T));
+            }
+
+            if (!Services.Any(descriptor => descriptor.ServiceType == serviceType && descriptor.ImplementationType == implementationType))
+            {
+                Services.AddScoped(typeof(IFeatureFilterMetadata), typeof(T));
+            }
+
+            return this;
+        }
+
+        public IFeatureManagementBuilder AddSessionManagerForBlazor<T>() where T : ISessionManager
+        {
+            Services.AddScoped(typeof(ISessionManager), typeof(T));
 
             return this;
         }
