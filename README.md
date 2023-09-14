@@ -1,7 +1,7 @@
 # .NET Feature Management
 
 
-[![Microsoft.FeatureManagement](https://img.shields.io/nuget/v/FeatureManagement.Blazor?label=FeatureManagement.Blazor)](https://www.nuget.org/packages/Microsoft.FeatureManagement)
+[![Microsoft.FeatureManagement](https://img.shields.io/nuget/v/FeatureManagement.Blazor?label=FeatureManagement.Blazor)](https://www.nuget.org/packages/FeatureManagement.Blazor)
 
 A fork of [Microsoft.FeatureManagement](https://www.nuget.org/packages/Microsoft.FeatureManagement). This fork exposes various core feature management dependencies as part of the public api. Previously, these dependencies weren't made available outside of the library, and registered via the FeatureManagementBuilder as Singletons. These changes allow you to register these dependencies with your desired scope.
 
