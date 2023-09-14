@@ -1,51 +1,54 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\..\build\NugetProperties.props" />
+	<Import Project="..\..\build\NugetProperties.props" />
 
-  <!-- Official Version -->
-  <PropertyGroup>
-    <MajorVersion>2</MajorVersion>
-    <MinorVersion>6</MinorVersion>
-    <PatchVersion>1</PatchVersion>
-  </PropertyGroup>
+	<!-- Official Version -->
+	<PropertyGroup>
+		<MajorVersion>2</MajorVersion>
+		<MinorVersion>6</MinorVersion>
+		<PatchVersion>3</PatchVersion>
+	</PropertyGroup>
 
-  <Import Project="..\..\build\Versioning.props" />
+	<Import Project="..\..\build\Versioning.props" />
 
-  <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netcoreapp3.1;net5.0;net6.0</TargetFrameworks>
-    <SignAssembly>true</SignAssembly>
-    <DelaySign>false</DelaySign>
-    <AssemblyOriginatorKeyFile>..\..\build\Microsoft.FeatureManagement.snk</AssemblyOriginatorKeyFile>
-    <LangVersion>8.0</LangVersion>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.0;netcoreapp3.1;net5.0;net6.0</TargetFrameworks>
+		<SignAssembly>true</SignAssembly>
+		<DelaySign>false</DelaySign>
+		<AssemblyOriginatorKeyFile>..\..\build\Microsoft.FeatureManagement.snk</AssemblyOriginatorKeyFile>
+		<LangVersion>8.0</LangVersion>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <Description>Microsoft.FeatureManagement provides a way to develop and expose application functionality based on features. Many applications have special requirements when a new feature is developed such as when the feature should be enabled and under what conditions. This library provides a way to define these relationships, and also integrates into common .NET code patterns to make exposing these features possible.</Description>
-    <Authors>Microsoft</Authors>
-    <Company>Microsoft</Company>
-    <PackageProjectUrl>https://github.com/Azure/AppConfiguration</PackageProjectUrl>
-    <PackageLicenseUrl>https://licenses.nuget.org/MIT</PackageLicenseUrl>
-    <PackageReleaseNotes>Release notes can be found at https://aka.ms/MicrosoftFeatureManagementReleaseNotes</PackageReleaseNotes>
-    <PackageTags>Microsoft FeatureManagement FeatureFlags AzureAppConfiguration</PackageTags>
-    <PackageIconUrl>https://aka.ms/AzureAppConfigurationPackageIcon</PackageIconUrl>
-    <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
-  </PropertyGroup>
+	<PropertyGroup>
+		<Description>A fork of Microsoft.FeatureManagement, core dependencies have been made available as part of the public api. Provides a way to develop and expose application functionality based on features. Many applications have special requirements when a new feature is developed such as when the feature should be enabled and under what conditions. This library provides a way to define these relationships, and also integrates into common .NET code patterns to make exposing these features possible.</Description>
+		<Authors>samgibsonmoj (GitHub User), Microsoft</Authors>
+		<Company>samgibsonmoj (GitHub User)</Company>
+		<PackageProjectUrl>https://github.com/samgibsonmoj/FeatureManagement-Dotnet</PackageProjectUrl>
+		<PackageLicenseUrl>https://licenses.nuget.org/MIT</PackageLicenseUrl>
+		<PackageTags>Microsoft FeatureManagement FeatureFlags AzureAppConfiguration Blazor</PackageTags>
+		<Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
+	</PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="1.1.1" />
-  </ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+		<PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="1.1.1" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.1.23" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="2.1.10" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.1.1" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.1.23" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="2.1.10" />
+		<PackageReference Include="Microsoft.Extensions.Logging" Version="2.1.1" />
+	</ItemGroup>
 
-  <PropertyGroup>
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(RuntimeIdentifier)\XMLComments\$(MSBuildProjectName).xml</DocumentationFile>
-  </PropertyGroup>
+	<PropertyGroup>
+		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(RuntimeIdentifier)\XMLComments\$(MSBuildProjectName).xml</DocumentationFile>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageId>FeatureManagement.Blazor</PackageId>
+		<Product>$(AssemblyName).Blazor</Product>
+		<AssemblyName>Microsoft.FeatureManagement</AssemblyName>
+		<Version>2.6.3</Version>
+	</PropertyGroup>
 
-  <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
-    <Copy SourceFiles="$(DocumentationFile)" DestinationFolder="$(OutDir)\XMLComments" SkipUnchangedFiles="false" />
-  </Target>
+	<Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
+		<Copy SourceFiles="$(DocumentationFile)" DestinationFolder="$(OutDir)\XMLComments" SkipUnchangedFiles="false" />
+	</Target>
 
 </Project>
