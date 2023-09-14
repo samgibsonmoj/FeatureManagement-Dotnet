@@ -8,7 +8,7 @@ namespace Microsoft.FeatureManagement
     /// <summary>
     /// Empty implementation of <see cref="ISessionManager"/>.
     /// </summary>
-    class EmptySessionManager : ISessionManager
+    public class EmptySessionManager : ISessionManager
     {
         public Task SetAsync(string featureName, bool enabled)
         {
